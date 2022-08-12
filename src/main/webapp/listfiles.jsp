@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: manni
-  Date: 28/07/22
-  Time: 1:13 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix ="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList"%>
@@ -31,8 +25,29 @@
      <input type="hidden" name="path" value=" ${path}/${folder}"/>
      <input type="submit" value="${folder}"/>
 </form>
-
-
+</br>
 </c:forEach>
 
+
+
+<h1>=========================</h1>
+    <h1>List of files</h1>
+    <c:forEach items="${files}" var="file">
+        <c:url value="/DownloadController" var="downloadurl">
+            <c:param name="path" value="${path}"></c:param>
+            <c:param name="file" value="${file}"></c:param>
+
+        </c:url>
+    <a href="${downloadurl}">${file}</a>
+    </c:forEach>
+</br>
+</br>
+<c:url value="/UploadController" var="uploadurl">
+    <c:param name="path" value="${path}"></c: param>
+</c:url>
+<form action="${uploadurl}" method="post" enctype="multipart/form-data">
+    Select files :: <input type="file" name="files" multiple />
+    <input type="submit" value="Upload Files" />
+</form>
+</body>
 </html>

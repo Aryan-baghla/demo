@@ -5,7 +5,7 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Homepage" %>
 </h1>
 <br/>
 <a href="<%=request.getContextPath()%>/FileController">start browsing</a>

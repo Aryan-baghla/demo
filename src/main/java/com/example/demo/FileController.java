@@ -10,10 +10,10 @@ import java.util.Objects;
 
 @WebServlet(name = "FileController", value = "/FileController")
 public class FileController extends HttpServlet {
-    private static final String PARENT_PATH = "/Users/manni/Test";
+    private static final String PARENT_PATH = "/Users/manni/HOME";
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getParameter("path");
-       if(Objects.equals(path, "null") || path.isEmpty()){
+       if(path == null || path.isEmpty()){
             path = PARENT_PATH ;
         }
         listfiles(path,request, response);
@@ -22,10 +22,11 @@ public class FileController extends HttpServlet {
 
     private void listfiles(String path, HttpServletRequest request, HttpServletResponse response) {
         File filepath = new File(path);
-        File filelist[] = filepath.listFiles();
+        File[] fileList = filepath.listFiles();
         ArrayList<String> folders = new ArrayList<String>();
         ArrayList<String> files = new ArrayList<String>();
-        for(File file : filelist){
+        assert fileList != null;
+        for(File file : fileList){
             if(file.isDirectory())
                 folders.add(file.getName());
             else
@@ -36,7 +37,7 @@ public class FileController extends HttpServlet {
         request.setAttribute("folders",folders);
         request.setAttribute("files",files);
         try {
-            getServletContext().getRequestDispatcher("/listFiles.jsp").forward (request, response);
+            getServletContext().getRequestDispatcher("/listfiles.jsp").forward (request, response);
         }
         catch (ServletException | IOException e) {
             e.printStackTrace();
